@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomWalker2", "RandomWalk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLauncher", "ConsoleLauncher\ConsoleLauncher.csproj", "{84F9BD60-7394-4F75-9CD4-52ED526D802B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A24C6184-B45B-436F-A0D8-2F739817F06D}"
+	ProjectSection(SolutionItems) = preProject
+		HowToImplementYourOwnRandomWalkerTalk.txt = HowToImplementYourOwnRandomWalkerTalk.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

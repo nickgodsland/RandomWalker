@@ -1,0 +1,127 @@
+* Start process and wait until main window handle is not IntPtr.Zero
+      
+      private void StartProces(string name = "calc.exe")
+      {
+         _process = Process.Start(name);
+         while (_process.MainWindowHandle == IntPtr.Zero)
+         {
+         }
+      }
+
+* Get main window automation element 
+
+         var mainWindowAutomationElement = AutomationElement.FromHandle(_process.MainWindowHandle);
+
+* Find all child automation elements 
+
+         _automationElements = mainWindowAutomationElement.FindAll(TreeScope.Subtree, Condition.TrueCondition);
+
+* Create active window check so that we can detect if Random Walker has freed itself!
+
+      [DllImport("user32.dll")]
+      private static extern IntPtr GetForegroundWindow();
+
+      private bool ProcessIsActiveWindow()
+      {
+         var foregroundWindowHandle = GetForegroundWindow();
+         var isActive = _process.MainWindowHandle == foregroundWindowHandle || foregroundWindowHandle == IntPtr.Zero;
+
+         if (!isActive)
+         {
+            Console.WriteLine($"Process no longer has active window");
+         }
+
+         return isActive;
+      }
+
+* Create main worker loop
+
+         while (!_process.HasExited && ProcessIsActiveWindow())
+         {
+
+	 }
+
+* Create instance of Random outside of the main loop
+
+         var random = new Random();
+
+* Get a random element inside of the main program loop
+
+var randomAutomationElement = _automationElements[random.Next(_automationElements.Count - 1)];
+
+* Create a try catch block to deal with ElementNotAvailableException
+
+            try
+            {
+		// Do stuff with element
+            }
+            catch (ElementNotAvailableException)
+            {
+               Console.WriteLine("ElementNotAvailableException");
+            }
+
+* Filter out "invalid" elements
+
+               if (CheckElementIsInvalid(randomAutomationElement))
+                  continue;
+
+
+      private bool CheckElementIsInvalid(AutomationElement randomAutomationElement)
+      {
+         return randomAutomationElement.Current.BoundingRectangle.IsEmpty ||
+                randomAutomationElement.Current.IsOffscreen ||
+                _elementBlackList.Contains(randomAutomationElement.Current.Name);
+      }
+
+      private readonly string[] _elementBlackList =
+      {
+         "Minimize", "Maximize", "Close", "System", "Calculator", "Application", "System Menu Bar"
+      };
+
+* Add some logging so we can see what's going on
+
+	Console.WriteLine($"Name: {randomAutomationElement.Current.Name} ClassName: {randomAutomationElement.Current.ClassName}");
+
+* Get the location of the random element 
+
+var location = randomAutomationElement.Current.BoundingRectangle.Location;
+
+* Move the cursor to this location 
+
+      [DllImport("user32.dll")]
+      private static extern bool SetCursorPos(int positionX, int positionY);
+
+SetCursorPos((int) location.X, (int) location.Y);
+
+* Let's press a "mouse button"
+
+      [DllImport("User32.dll", EntryPoint = "mouse_event")]
+      private static extern void Click(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+
+      private enum MouseEvent
+      {
+         MouseEventLeftDown = 0x02,
+         MouseEventLeftUp = 0x04
+      }
+
+               Click((int) MouseEvent.MouseEventLeftDown, 0, 0, 0, 0);
+               Click((int) MouseEvent.MouseEventLeftUp, 0, 0, 0, 0);
+
+* Demo - there is a problem!
+
+* Let's subscribe to new automation elements
+
+         StructureChangedEventHandler structureChangedEventHandler = OnStructureChange;
+         Automation.AddStructureChangedEventHandler(mainWindowAutomationElement, TreeScope.Subtree,
+            structureChangedEventHandler);
+
+      private void OnStructureChange(object sender, StructureChangedEventArgs e)
+      {
+	Console.WriteLine($"OnStructureChange {e.StructureChangeType}, {e.EventId}, {e.GetRuntimeId()}");
+      }
+
+* Let's refresh our collection of automation elements when the structure changes 
+
+         var automationElement = AutomationElement.FromHandle(_process.MainWindowHandle);
+         _automationElements = automationElement.FindAll(TreeScope.Subtree, Condition.TrueCondition);
+ 

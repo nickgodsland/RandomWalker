@@ -10,6 +10,8 @@ namespace ConsoleLauncher
          var tests = new Tests();
          tests.Test();
          tests.TearDown();
+
+         Console.WriteLine("Press any key to continue...");
          Console.ReadKey();
       }
    }

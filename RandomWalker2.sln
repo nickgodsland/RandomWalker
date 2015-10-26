@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomWalker2", "RandomWalker2\RandomWalker2.csproj", "{61E951C2-737A-480C-92F8-EAD0EA71A37D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleLauncher", "ConsoleLauncher\ConsoleLauncher.csproj", "{84F9BD60-7394-4F75-9CD4-52ED526D802B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61E951C2-737A-480C-92F8-EAD0EA71A37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E951C2-737A-480C-92F8-EAD0EA71A37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E951C2-737A-480C-92F8-EAD0EA71A37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E951C2-737A-480C-92F8-EAD0EA71A37D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F9BD60-7394-4F75-9CD4-52ED526D802B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F9BD60-7394-4F75-9CD4-52ED526D802B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F9BD60-7394-4F75-9CD4-52ED526D802B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F9BD60-7394-4F75-9CD4-52ED526D802B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Automation;
 using NUnit.Framework;
 
@@ -15,7 +14,7 @@ namespace RandomWalker2
       private AutomationElementCollection _automationElements;
 
       private readonly string[] _elementBlackList =
-{
+      {
          "Minimize", "Maximize", "Close", "System", "Calculator", "Application", "System Menu Bar"
       };
 
@@ -28,7 +27,7 @@ namespace RandomWalker2
       [TearDown]
       public void TearDown()
       {
-
+         Automation.RemoveAllEventHandlers();
       }
 
       [Test]
@@ -59,10 +58,10 @@ namespace RandomWalker2
 
                var location = randomAutomationElement.Current.BoundingRectangle.Location;
 
-               SetCursorPos((int)location.X, (int)location.Y);
+               SetCursorPos((int) location.X, (int) location.Y);
 
-               Click((int)MouseEvent.MouseEventLeftDown, 0, 0, 0, 0);
-               Click((int)MouseEvent.MouseEventLeftUp, 0, 0, 0, 0);
+               Click((int) MouseEvent.MouseEventLeftDown, 0, 0, 0, 0);
+               Click((int) MouseEvent.MouseEventLeftUp, 0, 0, 0, 0);
             }
             catch (ElementNotAvailableException)
             {
@@ -110,12 +109,10 @@ namespace RandomWalker2
       [DllImport("user32.dll")]
       private static extern bool SetCursorPos(int positionX, int positionY);
 
-
       [DllImport("user32.dll")]
       private static extern IntPtr GetForegroundWindow();
 
       [DllImport("User32.dll", EntryPoint = "mouse_event")]
       private static extern void Click(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
-
    }
 }
